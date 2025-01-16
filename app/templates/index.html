@@ -1,0 +1,54 @@
+{% extends 'layout.html' %} {% block content %}
+<div class="container">
+  <h1>Galería de Imágenes</h1>
+  <div class="row">
+    {% for image in images %}
+    <div class="col-md-4" style="display: inline">
+      <div class="card mb-4">
+        <img
+          src="{{ url_for('static', filename='images/' ~ image) }}"
+          width="300"
+          height="300"
+          class="card-img-top"
+          alt="{{ image }}"
+        />
+        <div class="card-body">
+          <button class="btn btn-primary analyze-btn" data-image="{{ image }}">
+            Analizar
+          </button>
+          <div class="mt-2" id="result-{{ image }}"></div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const buttons = document.querySelectorAll(".analyze-btn");
+    buttons.forEach((button) => {
+      button.addEventListener("click", function () {
+        const imageName = this.getAttribute("data-image");
+        fetch("/analyze", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: `image_name=${imageName}`,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            const resultDiv = document.getElementById(`result-${imageName}`);
+            resultDiv.innerHTML = `<strong>Categorías:</strong><ul>
+            <li> Porcentaje de fiabilidad: ${data.categories[0].confidence}%, Tipo: ${data.categories[0]['tag']['es']} </li>
+            <li> Porcentaje de fiabilidad: ${data.categories[1].confidence}%, Tipo: ${data.categories[1]['tag']['es']} </li>
+            </ul>`;
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      });
+    });
+  });
+</script>
+{% endblock %}

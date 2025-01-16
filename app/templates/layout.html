@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Mi Aplicación Flask{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <header>
+      <h1>Analisis de imagenes</h1>
+      <!-- Aquí puedes incluir una barra de navegación si es necesario -->
+    </header>
+    <main>
+      {% block content %}
+      <!-- El contenido específico de cada página se insertará aquí -->
+      {% endblock %}
+    </main>
+    <footer>
+      <p>Daniel Rivas.</p>
+    </footer>
+  </body>
+</html>
