@@ -37,10 +37,10 @@ Hay una imagen dockerizada disponible en DockerHub. Para utilizar la aplicación
 2. Asegúrate de tener Docker instalado y funcionando correctamente.
 3. Ejecuta el siguiente comando para descargar la imagen desde Docker Hub:
     ```sh
-    docker pull <nombre-de-la-imagen>
+    docker pull rusticdevelop/image_analysis
     ```
 4. Una vez descargada la imagen, ejecuta el siguiente comando para iniciar la aplicación:
     ```sh
-    docker run -p 8000:4500 <nombre-de-la-imagen>
+    docker run -p 8000:4500 rusticdevelop/image_analysis
     ```
 5. Abre tu navegador web y navega a `http://localhost:8000` para acceder a la aplicación.
